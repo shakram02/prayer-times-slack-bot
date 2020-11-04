@@ -2,7 +2,14 @@
 
 This worker fetches prayer times :mosque: from a remote API and posts a message to Slack when it's prayer time and when the prayer time is about to end so you're almost sure in sha Allah that you're not missing any prayers :v:.
 
-You can run this script either locally or using `docker` .
+
+This is how it looks like :dark_sunglasses:
+
+![sample message](media/sample.png)
+
+## Usage
+
+You can run this script either locally or using `docker`.
 
 ### Setup locally :computer:
 

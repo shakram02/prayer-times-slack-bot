@@ -1,5 +1,5 @@
 {
     "SLACK_WEBHOOK_URL": "https://hooks.slack.com/services/example",
     "COUNTRY": "Saudi Arabia",
-    "CITY": "Egypt"
+    "CITY": "Mecca"
 }

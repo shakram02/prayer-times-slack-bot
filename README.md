@@ -26,7 +26,7 @@ You can run this script either locally or using `docker`.
 > the script is meant to be run as a background task, so it keeps scheduling tasks and doesn't exit on it's own.
 
 ### Thank you!
-Idea and setup steps credits go to [Sholat-Prayer-Times-Slack](https://github.com/ainunnajib/Sholat-Prayer-Times-Slack/)
+Idea and setup steps credits go to Sholat-Prayer-Times-Slack by [ainunnajib](https://github.com/ainunnajib)
 
 Deidicated to Rubikal LLC. :house:, I developed this script when I was there and they welcomed the idea once I asked to deploy it on their servers, and they didn't mind that I own the script and release as opensource code.
 

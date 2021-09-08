@@ -2,6 +2,7 @@
 
 This worker fetches prayer times :mosque: from a remote API and posts a message to Slack when it's prayer time and when the prayer time is about to end so you're almost sure in sha Allah that you're not missing any prayers :v:.
 
+Deidicated to Rubikal LLC. :house:
 
 This is how it looks like :dark_sunglasses:
 

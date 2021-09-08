@@ -2,8 +2,6 @@
 
 This worker fetches prayer times :mosque: from a remote API and posts a message to Slack when it's prayer time and when the prayer time is about to end so you're almost sure in sha Allah that you're not missing any prayers :v:.
 
-Deidicated to Rubikal LLC. :house:
-
 This is how it looks like :dark_sunglasses:
 
 ![sample message](media/sample.png)
@@ -29,6 +27,8 @@ You can run this script either locally or using `docker`.
 
 ### Thank you!
 Idea and setup steps credits go to [Sholat-Prayer-Times-Slack](https://github.com/ainunnajib/Sholat-Prayer-Times-Slack/)
+
+Deidicated to Rubikal LLC. :house:, I developed this script when I was there and they welcomed the idea once I asked to deploy it on their servers.
 
 ### Setup using docker :whale:
 

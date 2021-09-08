@@ -27,44 +27,11 @@ from pytz import timezone
 from iso3166 import countries
 from datetime import datetime, timedelta
 
-if sys.version_info[0] < 3 or sys.version_info[1] < 3:
-    print("This script requires at least Python version 3", file=sys.stderr)
-    sys.exit(1)
-
-DEFAULT_CITY = "Mecca"
-DEFAULT_COUNTRY = "Saudi Arabia"
-
-
-def get_param(param_name, default_value):
-    """
-    Get script parameter from ENV variables,
-    fallback to default a value
-    """
-    return os.getenv((param_name), default_value)
-
-
-# Get files from environment variables, fallback to default values.
-CITY = get_param("PRAYER_TIMES_SLACK_CITY", DEFAULT_CITY)
-COUNTRY = get_param("PRAYER_TIMES_SLACK_COUNTRY", DEFAULT_COUNTRY)
 # https://aladhan.com/prayer-times-api
-API_URL = "http://api.aladhan.com/v1/timingsByCity"
-
-# Get the iso3166 country code.
-COUNTRY_CODE = countries.get(COUNTRY).alpha2
-
-# If this doesn't work for your country (your country has multiple timezones)
-# use countries.get(YOUR_REGION_ISO3166_CODE), be default the code uses the first
-# available timezone name
-COUNTRY_TIMEZONE_NAME = pytz.country_timezones[COUNTRY_CODE][0]
-country_locale = timezone(COUNTRY_TIMEZONE_NAME)
+API_URL = "https://api.aladhan.com/v1/timingsByCity"
 
 SLACK_BOT_EMOJI = ":mosque:"  # Emoji of the bot (replaces the user icon)
 SLACK_BOT_USER_NAME = "Prayer Times"  # Display name of the bot.
-# Add your webhook links, in case you want to add multiple slack channels.
-SLACK_WEBHOOK_URLS = [
-    "https://hooks.slack.com/services/[YOUR_CHANNEL_WEBHOOK_LINK]"
-]
-
 scheduler = sched.scheduler()
 
 
@@ -291,10 +258,10 @@ def post_to_slack(message=None):
     }
 
     payload_json = json.dumps(payload)
-    for webhook_url in SLACK_WEBHOOK_URLS:
-        r = requests.post(url=webhook_url, data=payload_json)
-        if r.status_code != 200:
-            print(f"Request failed, got:\n\n{r.text}", file=sys.stderr)
+
+    r = requests.post(url=SLACK_WEBHOOK_URL, data=payload_json)
+    if r.status_code != 200:
+        print(f"Request failed, got:\n\n{r.text}", file=sys.stderr)
 
 
 def schedule_next_prayer(next_prayer_info, date, next_offset):
@@ -388,7 +355,11 @@ def schedule_daily_task():
 
 
 def main():
-    # Start the scheduler now
+    # If you want to send a test message
+    # uncomment the following line
+    # post_to_slack()
+
+    # Start the scheduler now ⏲
     location = f"[{COUNTRY}].[{CITY}]"
     print(f"RUNNING [{__file__}] for {location}...", file=sys.stderr)
     scheduler.enter(0, 1, schedule_daily_task)
@@ -397,4 +368,27 @@ def main():
 
 
 if __name__ == "__main__":
+    if sys.version_info[0] < 3 or sys.version_info[1] < 3:
+        print("This script requires at least Python version 3", file=sys.stderr)
+        sys.exit(1)
+
+    CONFIG = json.load(
+        open(os.path.join(os.path.dirname(__file__), "config.json"))
+    )
+
+    CITY = CONFIG["CITY"]
+    COUNTRY = CONFIG["COUNTRY"]
+    SLACK_WEBHOOK_URL = CONFIG["SLACK_WEBHOOK_URL"]
+    assert CITY and COUNTRY and SLACK_WEBHOOK_URL, "A required variable is missing, please fix your .env file"
+
+    # Get the iso3166 country code.
+    COUNTRY_CODE = countries.get(COUNTRY).alpha2
+
+    # If this doesn't work for your country (your country has multiple timezones)
+    # use countries.get(YOUR_REGION_ISO3166_CODE), be default the code uses the first
+    # available timezone name
+    COUNTRY_TIMEZONE_NAME = pytz.country_timezones[COUNTRY_CODE][0]
+    country_locale = timezone(COUNTRY_TIMEZONE_NAME)
+
+    # Run 🚀
     main()

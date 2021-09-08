@@ -28,7 +28,7 @@ You can run this script either locally or using `docker`.
 ### Thank you!
 Idea and setup steps credits go to [Sholat-Prayer-Times-Slack](https://github.com/ainunnajib/Sholat-Prayer-Times-Slack/)
 
-Deidicated to Rubikal LLC. :house:, I developed this script when I was there and they welcomed the idea once I asked to deploy it on their servers.
+Deidicated to Rubikal LLC. :house:, I developed this script when I was there and they welcomed the idea once I asked to deploy it on their servers, and they didn't mind that I own the script and release as opensource code.
 
 ### Setup using docker :whale:
 
